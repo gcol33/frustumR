@@ -1,0 +1,18 @@
+TARGET = $(subst 64,x86_64,$(subst 32,i686,$(WIN)))-pc-windows-gnu
+LIBDIR = ./rust/target/$(TARGET)/release
+STATLIB = $(LIBDIR)/libfrustumR.a
+PKG_LIBS = -L$(LIBDIR) -lfrustumR -lws2_32 -lbcrypt -lntdll -lole32 -ld3dcompiler -luserenv
+
+all: C_clean
+
+$(SHLIB): $(STATLIB)
+
+$(STATLIB):
+	mkdir -p $(LIBDIR)
+	cargo build --lib --release --target=$(TARGET) --manifest-path=./rust/Cargo.toml
+
+C_clean:
+	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS)
+
+clean:
+	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) ./rust/target

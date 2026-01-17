@@ -1,0 +1,15 @@
+[package]
+name = "frustumR"
+version = "0.1.0"
+edition = "2021"
+description = "R bindings for Frustum GPU rendering framework"
+license = "MIT"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+# For development, use local paths (switch to git for CRAN submission)
+frustum-core = { path = "../../../frustum/crates/frustum-core" }
+frustum-render = { path = "../../../frustum/crates/frustum-render" }
+extendr-api = "0.7"
