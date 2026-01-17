@@ -3,7 +3,7 @@ Title: GPU-Accelerated Scientific 3D Visualization
 Version: 0.1.0
 Authors@R:
     person("Gilles", "Colling", role = c("aut", "cre"),
-           email = "gilles@example.com")
+           email = "gilles.colling@kuleuven.be")
 Description: Create publication-quality 3D scientific figures using GPU
     acceleration. Supports isosurface extraction via marching cubes,
     point clouds, polylines, and triangle meshes. Built on Rust and wgpu
@@ -11,8 +11,11 @@ Description: Create publication-quality 3D scientific figures using GPU
 License: MIT + file LICENSE
 URL: https://github.com/gcol33/frustumR
 BugReports: https://github.com/gcol33/frustumR/issues
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 SystemRequirements: Cargo (Rust's package manager), rustc >= 1.70
 Config/rextendr/version: 0.3.1

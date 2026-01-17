@@ -521,10 +521,13 @@ fn render_to_png(scene: ExternalPtr<SceneData>, width: i32, height: i32, backgro
 ///
 /// @param png_data Raw vector of PNG data
 /// @param filename Output filename
+/// @return Invisible TRUE on success, or error
 /// @export
 #[extendr]
-fn save_png(png_data: Raw, filename: &str) {
-    std::fs::write(filename, png_data.as_slice()).expect("Failed to write PNG file");
+fn save_png(png_data: Raw, filename: &str) -> extendr_api::Result<bool> {
+    std::fs::write(filename, png_data.as_slice())
+        .map_err(|e| extendr_api::Error::Other(format!("Failed to write PNG file: {}", e)))?;
+    Ok(true)
 }
 
 // Macro to generate exports

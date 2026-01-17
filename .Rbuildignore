@@ -1,0 +1,9 @@
+^\.git$
+^\.gitignore$
+^\.Rproj\.user$
+^.*\.Rproj$
+^LICENSE\.md$
+^README\.Rmd$
+^README\.md$
+^src/rust/target$
+^src/rust/Cargo\.lock$
