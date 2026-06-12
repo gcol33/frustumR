@@ -1,5 +1,7 @@
 # frustumR
 
+> Small exact engines for scientific computing in R.
+
 *3D rendered straight to a file*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
