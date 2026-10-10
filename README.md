@@ -3,6 +3,7 @@
 *3D rendered straight to a file*
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Codecov test coverage](https://codecov.io/gh/gcol33/frustumR/graph/badge.svg)](https://app.codecov.io/gh/gcol33/frustumR)
 
 **Headless GPU rendering of scientific 3D figures, straight to PNG.**
 

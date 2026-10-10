@@ -7,3 +7,4 @@
 ^README\.md$
 ^src/rust/target$
 ^src/rust/Cargo\.lock$
+^\.github$
