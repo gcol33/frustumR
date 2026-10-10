@@ -11,4 +11,4 @@ crate-type = ["staticlib"]
 [dependencies]
 frustum-core = "0.1.0"
 frustum-render = "0.1.0"
-extendr-api = "0.7"
+extendr-api = "0.9"
