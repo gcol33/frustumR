@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# Locate cargo and write src/Makevars with the system libraries the Rust
+# static library links against on this platform. The lists are the output of
+# `cargo rustc --lib --release -- --print native-static-libs` without -lR,
+# which R adds to the link line itself.
+
+CARGO=`command -v cargo`
+if [ -z "$CARGO" ] && [ -x "$HOME/.cargo/bin/cargo" ]; then
+  CARGO="$HOME/.cargo/bin/cargo"
+fi
+if [ -z "$CARGO" ]; then
+  echo "------------------------------------------------------------------"
+  echo "frustumR needs the Rust toolchain (cargo and rustc >= 1.85.0)."
+  echo "Install it from https://rustup.rs and reinstall frustumR."
+  echo "------------------------------------------------------------------"
+  exit 1
+fi
+
+"$CARGO" --version
+"`dirname "$CARGO"`/rustc" --version
+
+case `uname -s` in
+  Darwin)
+    NATIVE_LIBS="-framework Foundation -framework QuartzCore -framework Metal -framework CoreGraphics -framework CoreFoundation -lobjc -liconv -lSystem -lc -lm"
+    ;;
+  *)
+    NATIVE_LIBS="-lgcc_s -lutil -lrt -lpthread -lm -ldl -lc"
+    ;;
+esac
+
+sed -e "s|@CARGO@|${CARGO}|" \
+    -e "s|@NATIVE_LIBS@|${NATIVE_LIBS}|" \
+    src/Makevars.in > src/Makevars

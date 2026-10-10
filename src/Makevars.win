@@ -9,7 +9,7 @@ $(SHLIB): $(STATLIB)
 
 $(STATLIB):
 	mkdir -p $(LIBDIR)
-	cargo build --lib --release --target=$(TARGET) --manifest-path=./rust/Cargo.toml
+	cargo build --lib --release --locked --target=$(TARGET) --manifest-path=./rust/Cargo.toml
 
 C_clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS)
