@@ -34,6 +34,10 @@ jobs:
         if: runner.os == 'Windows'
         run: rustup target add x86_64-pc-windows-gnu
 
+      - name: Vendor Rust crates
+        shell: bash
+        run: sh tools/vendor-crates.sh
+
       - uses: r-lib/actions/setup-pandoc@v2
 
       - uses: r-lib/actions/setup-r@v2

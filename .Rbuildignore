@@ -7,4 +7,7 @@
 ^README\.md$
 ^src/rust/target$
 ^src/Makevars$
+^src/\.cargo$
+^src/rust/vendor$
+^tools$
 ^\.github$

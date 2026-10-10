@@ -1,9 +1,14 @@
 #!/bin/sh
 
-# Locate cargo and write src/Makevars with the system libraries the Rust
-# static library links against on this platform. The lists are the output of
-# `cargo rustc --lib --release -- --print native-static-libs` without -lR,
-# which R adds to the link line itself.
+# Write src/Makevars from src/Makevars.in: the cargo binary, the Rust target
+# triple, the system libraries the Rust static library links against, and
+# whether crates come from the vendored sources in src/rust/vendor.tar.xz.
+#
+# The library lists are the output of
+#   cargo rustc --lib --release -- --print native-static-libs
+# without -lR, which R adds to the link line itself. On Windows the import
+# library windows.0.52.0 is replaced by the system import libraries that
+# define the symbols it stands for.
 
 CARGO=`command -v cargo`
 if [ -z "$CARGO" ] && [ -x "$HOME/.cargo/bin/cargo" ]; then
@@ -16,19 +21,48 @@ if [ -z "$CARGO" ]; then
   echo "------------------------------------------------------------------"
   exit 1
 fi
+RUSTC="`dirname "$CARGO"`/rustc"
 
 "$CARGO" --version
-"`dirname "$CARGO"`/rustc" --version
+"$RUSTC" --version
 
 case `uname -s` in
+  MINGW* | MSYS* | CYGWIN*)
+    case `uname -m` in
+      aarch64 | arm64) RUST_TARGET=aarch64-pc-windows-gnullvm ;;
+      *) RUST_TARGET=x86_64-pc-windows-gnu ;;
+    esac
+    NATIVE_LIBS="-lopengl32 -lgdi32 -lole32 -loleaut32 -lpropsys -lruntimeobject -ld3dcompiler -lkernel32 -lntdll -luserenv -lws2_32 -ldbghelp"
+    ;;
   Darwin)
+    RUST_TARGET=`"$RUSTC" -vV | sed -n 's/^host: //p'`
     NATIVE_LIBS="-framework Foundation -framework QuartzCore -framework Metal -framework CoreGraphics -framework CoreFoundation -lobjc -liconv -lSystem -lc -lm"
     ;;
   *)
+    RUST_TARGET=`"$RUSTC" -vV | sed -n 's/^host: //p'`
     NATIVE_LIBS="-lgcc_s -lutil -lrt -lpthread -lm -ldl -lc"
     ;;
 esac
+echo "Rust target: ${RUST_TARGET}"
+
+CARGO_OFFLINE=""
+if [ -f src/rust/vendor.tar.xz ]; then
+  echo "Building with the vendored crates in src/rust/vendor.tar.xz"
+  rm -rf src/rust/vendor
+  tar -xJf src/rust/vendor.tar.xz -C src/rust || exit 1
+  mkdir -p src/.cargo
+  cat > src/.cargo/config.toml <<EOF
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "rust/vendor"
+EOF
+  CARGO_OFFLINE="--offline"
+fi
 
 sed -e "s|@CARGO@|${CARGO}|" \
+    -e "s|@RUST_TARGET@|${RUST_TARGET}|g" \
     -e "s|@NATIVE_LIBS@|${NATIVE_LIBS}|" \
+    -e "s|@CARGO_OFFLINE@|${CARGO_OFFLINE}|" \
     src/Makevars.in > src/Makevars
