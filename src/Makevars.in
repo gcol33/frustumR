@@ -2,15 +2,18 @@ LIBDIR = ./rust/target/@RUST_TARGET@/release
 STATLIB = $(LIBDIR)/libfrustumR.a
 PKG_LIBS = -L$(LIBDIR) -lfrustumR @NATIVE_LIBS@
 
-all: C_clean
+# The static library is deleted once linked into $(SHLIB), so cargo runs on
+# every build (its dependency cache under rust/target stays) and the archive
+# is not left in the installed source tree.
+all: $(SHLIB) remove_statlib
 
 $(SHLIB): $(STATLIB)
 
 $(STATLIB):
 	"@CARGO@" build --lib --release --locked @CARGO_OFFLINE@ --target=@RUST_TARGET@ --manifest-path=./rust/Cargo.toml
 
-C_clean:
-	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS)
+remove_statlib: $(SHLIB)
+	rm -f $(STATLIB)
 
 clean:
 	rm -Rf $(SHLIB) $(STATLIB) $(OBJECTS) ./rust/target
