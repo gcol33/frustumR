@@ -12,6 +12,25 @@ the GPU (`wgpu`, so Vulkan / Metal / DX12), and get back the PNG bytes. The same
 scene renders the same pixels on a laptop, a headless server, or CI, with no
 display server and no OpenGL context to manage.
 
+## Installation
+
+frustumR has a Rust backend, so building it needs a Rust toolchain (`cargo`,
+`rustc >= 1.70`) and a GPU with Vulkan, Metal, or DX12 support. Install Rust from
+[rustup.rs](https://rustup.rs/).
+
+```r
+# development version
+remotes::install_github("gcol33/frustumR")
+```
+
+On Windows, add the GNU target so the package links against the R toolchain:
+
+```bash
+rustup target add x86_64-pc-windows-gnu
+```
+
+## Quick start
+
 ```r
 library(frustumR)
 
@@ -88,23 +107,6 @@ vol  <- volume_new(values, dimensions = c(nx, ny, nz),
                    spacing = c(dx, dy, dz), origin = c(-1, -1, -1))
 grad <- volume_gradient_magnitude(vol)
 mesh <- marching_cubes(grad, iso_value = 0.5)
-```
-
-## Installation
-
-frustumR has a Rust backend, so building it needs a Rust toolchain (`cargo`,
-`rustc >= 1.70`) and a GPU with Vulkan, Metal, or DX12 support. Install Rust from
-[rustup.rs](https://rustup.rs/).
-
-```r
-# development version
-remotes::install_github("gcol33/frustumR")
-```
-
-On Windows, add the GNU target so the package links against the R toolchain:
-
-```bash
-rustup target add x86_64-pc-windows-gnu
 ```
 
 ## Documentation
