@@ -345,7 +345,8 @@ checksum = "aa9a19cbb55df58761df49b23516a86d432839add4af60fc256da840f66ed35b"
 [[package]]
 name = "frustum-core"
 version = "0.1.0"
-source = "git+https://github.com/gcol33/frustum.git?tag=v0.1.0#62da22b3019898b82697955abb5042e5114b4aa7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "77a6d3969034bdfccf4fcfad52fac8d849368d5c297f35a284da52557438bc24"
 dependencies = [
  "glam",
  "serde",
@@ -356,7 +357,8 @@ dependencies = [
 [[package]]
 name = "frustum-render"
 version = "0.1.0"
-source = "git+https://github.com/gcol33/frustum.git?tag=v0.1.0#62da22b3019898b82697955abb5042e5114b4aa7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fe35b031c6690812a73b3e001dfb5ff2d586a64586006ea77db69f003fdac05c"
 dependencies = [
  "bytemuck",
  "env_logger",
