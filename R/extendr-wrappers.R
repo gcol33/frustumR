@@ -3,7 +3,6 @@
 # This file was created with the following call:
 #   .Call("wrap__make_frustumR_wrappers", use_symbols = TRUE, package_name = "frustumR")
 
-#' @docType package
 #' @usage NULL
 #' @useDynLib frustumR, .registration = TRUE
 NULL
@@ -67,7 +66,7 @@ light_three_quarter <- function() .Call(wrap__light_three_quarter)
 #' Create a solid color material.
 #'
 #' @param id Material identifier string
-#' @param color RGB color as c(r, g, b) with values in [0, 1]
+#' @param color RGB color as c(r, g, b), each between 0 and 1
 #' @return External pointer to Material object
 #' @export
 material_solid <- function(id, color) .Call(wrap__material_solid, id, color)
@@ -75,7 +74,7 @@ material_solid <- function(id, color) .Call(wrap__material_solid, id, color)
 #' Create a solid color material with alpha.
 #'
 #' @param id Material identifier string
-#' @param color RGBA color as c(r, g, b, a) with values in [0, 1]
+#' @param color RGBA color as c(r, g, b, a), each between 0 and 1
 #' @return External pointer to Material object
 #' @export
 material_solid_alpha <- function(id, color) .Call(wrap__material_solid_alpha, id, color)
@@ -142,10 +141,18 @@ mesh_vertex_count <- function(mesh) .Call(wrap__mesh_vertex_count, mesh)
 pointcloud_new <- function(positions, size) .Call(wrap__pointcloud_new, positions, size)
 
 #' Set material ID on a point cloud.
+#'
+#' @param pc External pointer to PointCloud
+#' @param material_id Material identifier string
+#' @return External pointer to new PointCloud with material
 #' @export
 pointcloud_with_material <- function(pc, material_id) .Call(wrap__pointcloud_with_material, pc, material_id)
 
 #' Set scalars on a point cloud.
+#'
+#' @param pc External pointer to PointCloud
+#' @param scalars Vector of per-point scalar values
+#' @return External pointer to new PointCloud with scalars
 #' @export
 pointcloud_with_scalars <- function(pc, scalars) .Call(wrap__pointcloud_with_scalars, pc, scalars)
 
@@ -158,6 +165,10 @@ pointcloud_with_scalars <- function(pc, scalars) .Call(wrap__pointcloud_with_sca
 polyline_new <- function(positions, width) .Call(wrap__polyline_new, positions, width)
 
 #' Set material ID on a polyline.
+#'
+#' @param line External pointer to Polyline
+#' @param material_id Material identifier string
+#' @return External pointer to new Polyline with material
 #' @export
 polyline_with_material <- function(line, material_id) .Call(wrap__polyline_with_material, line, material_id)
 
@@ -218,22 +229,42 @@ marching_cubes_multi <- function(volume, iso_values) .Call(wrap__marching_cubes_
 scene_new <- function(camera, bounds_min, bounds_max) .Call(wrap__scene_new, camera, bounds_min, bounds_max)
 
 #' Add a mesh to the scene (returns new scene).
+#'
+#' @param scene External pointer to Scene
+#' @param mesh External pointer to Mesh
+#' @return External pointer to new Scene
 #' @export
 scene_add_mesh <- function(scene, mesh) .Call(wrap__scene_add_mesh, scene, mesh)
 
 #' Add a point cloud to the scene (returns new scene).
+#'
+#' @param scene External pointer to Scene
+#' @param points External pointer to PointCloud
+#' @return External pointer to new Scene
 #' @export
 scene_add_points <- function(scene, points) .Call(wrap__scene_add_points, scene, points)
 
 #' Add a polyline to the scene (returns new scene).
+#'
+#' @param scene External pointer to Scene
+#' @param polyline External pointer to Polyline
+#' @return External pointer to new Scene
 #' @export
 scene_add_polyline <- function(scene, polyline) .Call(wrap__scene_add_polyline, scene, polyline)
 
 #' Add a material to the scene (returns new scene).
+#'
+#' @param scene External pointer to Scene
+#' @param material External pointer to Material
+#' @return External pointer to new Scene
 #' @export
 scene_add_material <- function(scene, material) .Call(wrap__scene_add_material, scene, material)
 
 #' Set the scene light (returns new scene).
+#'
+#' @param scene External pointer to Scene
+#' @param light External pointer to Light
+#' @return External pointer to new Scene
 #' @export
 scene_set_light <- function(scene, light) .Call(wrap__scene_set_light, scene, light)
 

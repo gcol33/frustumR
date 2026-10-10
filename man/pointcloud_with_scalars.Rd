@@ -6,6 +6,14 @@
 \usage{
 pointcloud_with_scalars(pc, scalars)
 }
+\arguments{
+\item{pc}{External pointer to PointCloud}
+
+\item{scalars}{Vector of per-point scalar values}
+}
+\value{
+External pointer to new PointCloud with scalars
+}
 \description{
 Set scalars on a point cloud.
 }

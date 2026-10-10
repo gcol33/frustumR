@@ -6,6 +6,14 @@
 \usage{
 scene_add_mesh(scene, mesh)
 }
+\arguments{
+\item{scene}{External pointer to Scene}
+
+\item{mesh}{External pointer to Mesh}
+}
+\value{
+External pointer to new Scene
+}
 \description{
 Add a mesh to the scene (returns new scene).
 }

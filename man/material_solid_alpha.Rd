@@ -9,7 +9,7 @@ material_solid_alpha(id, color)
 \arguments{
 \item{id}{Material identifier string}
 
-\item{color}{RGBA color as c(r, g, b, a) with values in \link{0, 1}}
+\item{color}{RGBA color as c(r, g, b, a), each between 0 and 1}
 }
 \value{
 External pointer to Material object

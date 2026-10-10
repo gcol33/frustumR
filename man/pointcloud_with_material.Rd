@@ -6,6 +6,14 @@
 \usage{
 pointcloud_with_material(pc, material_id)
 }
+\arguments{
+\item{pc}{External pointer to PointCloud}
+
+\item{material_id}{Material identifier string}
+}
+\value{
+External pointer to new PointCloud with material
+}
 \description{
 Set material ID on a point cloud.
 }

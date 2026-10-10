@@ -6,6 +6,14 @@
 \usage{
 scene_add_material(scene, material)
 }
+\arguments{
+\item{scene}{External pointer to Scene}
+
+\item{material}{External pointer to Material}
+}
+\value{
+External pointer to new Scene
+}
 \description{
 Add a material to the scene (returns new scene).
 }

@@ -6,6 +6,14 @@
 \usage{
 scene_add_polyline(scene, polyline)
 }
+\arguments{
+\item{scene}{External pointer to Scene}
+
+\item{polyline}{External pointer to Polyline}
+}
+\value{
+External pointer to new Scene
+}
 \description{
 Add a polyline to the scene (returns new scene).
 }

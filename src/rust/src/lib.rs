@@ -20,6 +20,26 @@ use frustum_core::{
 use frustum_core::scene::{Bounds as RustBounds, Scene as RustScene};
 use frustum_render::{render_to_png as rust_render_to_png, RenderConfig as RustRenderConfig};
 
+/// Read an R integer or double vector whose elements are whole numbers.
+fn whole_numbers(x: &Robj, arg: &str) -> extendr_api::Result<Vec<i32>> {
+    if let Some(v) = x.as_integer_slice() {
+        return Ok(v.to_vec());
+    }
+    if let Some(v) = x.as_real_slice() {
+        return v
+            .iter()
+            .map(|&d| {
+                if d.fract() == 0.0 && d >= i32::MIN as f64 && d <= i32::MAX as f64 {
+                    Ok(d as i32)
+                } else {
+                    Err(Error::Other(format!("`{arg}` must contain whole numbers, got {d}")))
+                }
+            })
+            .collect();
+    }
+    Err(Error::Other(format!("`{arg}` must be a numeric vector")))
+}
+
 // =============================================================================
 // Camera
 // =============================================================================
@@ -123,7 +143,7 @@ fn light_three_quarter() -> ExternalPtr<RustLight> {
 /// Create a solid color material.
 ///
 /// @param id Material identifier string
-/// @param color RGB color as c(r, g, b) with values in [0, 1]
+/// @param color RGB color as c(r, g, b), each between 0 and 1
 /// @return External pointer to Material object
 /// @export
 #[extendr]
@@ -135,7 +155,7 @@ fn material_solid(id: &str, color: &[f64]) -> ExternalPtr<RustMaterial> {
 /// Create a solid color material with alpha.
 ///
 /// @param id Material identifier string
-/// @param color RGBA color as c(r, g, b, a) with values in [0, 1]
+/// @param color RGBA color as c(r, g, b, a), each between 0 and 1
 /// @return External pointer to Material object
 /// @export
 #[extendr]
@@ -168,10 +188,13 @@ fn material_scalar_mapped(id: &str, colormap: &str, range: &[f64]) -> ExternalPt
 /// @return External pointer to Mesh object
 /// @export
 #[extendr]
-fn mesh_new(positions: &[f64], indices: &[i32]) -> ExternalPtr<RustMesh> {
+fn mesh_new(positions: &[f64], indices: Robj) -> extendr_api::Result<ExternalPtr<RustMesh>> {
     let pos: Vec<f32> = positions.iter().map(|&x| x as f32).collect();
-    let idx: Vec<u32> = indices.iter().map(|&x| x as u32).collect();
-    ExternalPtr::new(RustMesh::new(pos, idx))
+    let idx: Vec<u32> = whole_numbers(&indices, "indices")?
+        .into_iter()
+        .map(|x| x as u32)
+        .collect();
+    Ok(ExternalPtr::new(RustMesh::new(pos, idx)))
 }
 
 /// Set material ID on a mesh.
@@ -243,6 +266,10 @@ fn pointcloud_new(positions: &[f64], size: f64) -> ExternalPtr<RustPointCloud> {
 }
 
 /// Set material ID on a point cloud.
+///
+/// @param pc External pointer to PointCloud
+/// @param material_id Material identifier string
+/// @return External pointer to new PointCloud with material
 /// @export
 #[extendr]
 fn pointcloud_with_material(pc: ExternalPtr<RustPointCloud>, material_id: &str) -> ExternalPtr<RustPointCloud> {
@@ -251,6 +278,10 @@ fn pointcloud_with_material(pc: ExternalPtr<RustPointCloud>, material_id: &str) 
 }
 
 /// Set scalars on a point cloud.
+///
+/// @param pc External pointer to PointCloud
+/// @param scalars Vector of per-point scalar values
+/// @return External pointer to new PointCloud with scalars
 /// @export
 #[extendr]
 fn pointcloud_with_scalars(pc: ExternalPtr<RustPointCloud>, scalars: &[f64]) -> ExternalPtr<RustPointCloud> {
@@ -272,6 +303,10 @@ fn polyline_new(positions: &[f64], width: f64) -> ExternalPtr<RustPolyline> {
 }
 
 /// Set material ID on a polyline.
+///
+/// @param line External pointer to Polyline
+/// @param material_id Material identifier string
+/// @return External pointer to new Polyline with material
 /// @export
 #[extendr]
 fn polyline_with_material(line: ExternalPtr<RustPolyline>, material_id: &str) -> ExternalPtr<RustPolyline> {
@@ -292,12 +327,13 @@ fn polyline_with_material(line: ExternalPtr<RustPolyline>, material_id: &str) ->
 /// @return External pointer to Volume object
 /// @export
 #[extendr]
-fn volume_new(values: &[f64], dimensions: &[i32], spacing: &[f64], origin: &[f64]) -> ExternalPtr<RustVolume> {
+fn volume_new(values: &[f64], dimensions: Robj, spacing: &[f64], origin: &[f64]) -> extendr_api::Result<ExternalPtr<RustVolume>> {
     let vals: Vec<f32> = values.iter().map(|&x| x as f32).collect();
+    let dimensions = whole_numbers(&dimensions, "dimensions")?;
     let dims: [usize; 3] = [dimensions[0] as usize, dimensions[1] as usize, dimensions[2] as usize];
     let sp: [f32; 3] = [spacing[0] as f32, spacing[1] as f32, spacing[2] as f32];
     let orig: [f32; 3] = [origin[0] as f32, origin[1] as f32, origin[2] as f32];
-    ExternalPtr::new(RustVolume::new(vals, dims, sp, orig))
+    Ok(ExternalPtr::new(RustVolume::new(vals, dims, sp, orig)))
 }
 
 /// Get value range of a volume.
@@ -437,6 +473,10 @@ fn scene_new(camera: ExternalPtr<RustCamera>, bounds_min: &[f64], bounds_max: &[
 }
 
 /// Add a mesh to the scene (returns new scene).
+///
+/// @param scene External pointer to Scene
+/// @param mesh External pointer to Mesh
+/// @return External pointer to new Scene
 /// @export
 #[extendr]
 fn scene_add_mesh(scene: ExternalPtr<SceneData>, mesh: ExternalPtr<RustMesh>) -> ExternalPtr<SceneData> {
@@ -446,6 +486,10 @@ fn scene_add_mesh(scene: ExternalPtr<SceneData>, mesh: ExternalPtr<RustMesh>) ->
 }
 
 /// Add a point cloud to the scene (returns new scene).
+///
+/// @param scene External pointer to Scene
+/// @param points External pointer to PointCloud
+/// @return External pointer to new Scene
 /// @export
 #[extendr]
 fn scene_add_points(scene: ExternalPtr<SceneData>, points: ExternalPtr<RustPointCloud>) -> ExternalPtr<SceneData> {
@@ -455,6 +499,10 @@ fn scene_add_points(scene: ExternalPtr<SceneData>, points: ExternalPtr<RustPoint
 }
 
 /// Add a polyline to the scene (returns new scene).
+///
+/// @param scene External pointer to Scene
+/// @param polyline External pointer to Polyline
+/// @return External pointer to new Scene
 /// @export
 #[extendr]
 fn scene_add_polyline(scene: ExternalPtr<SceneData>, polyline: ExternalPtr<RustPolyline>) -> ExternalPtr<SceneData> {
@@ -464,6 +512,10 @@ fn scene_add_polyline(scene: ExternalPtr<SceneData>, polyline: ExternalPtr<RustP
 }
 
 /// Add a material to the scene (returns new scene).
+///
+/// @param scene External pointer to Scene
+/// @param material External pointer to Material
+/// @return External pointer to new Scene
 /// @export
 #[extendr]
 fn scene_add_material(scene: ExternalPtr<SceneData>, material: ExternalPtr<RustMaterial>) -> ExternalPtr<SceneData> {
@@ -473,6 +525,10 @@ fn scene_add_material(scene: ExternalPtr<SceneData>, material: ExternalPtr<RustM
 }
 
 /// Set the scene light (returns new scene).
+///
+/// @param scene External pointer to Scene
+/// @param light External pointer to Light
+/// @return External pointer to new Scene
 /// @export
 #[extendr]
 fn scene_set_light(scene: ExternalPtr<SceneData>, light: ExternalPtr<RustLight>) -> ExternalPtr<SceneData> {

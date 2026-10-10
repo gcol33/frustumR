@@ -6,6 +6,14 @@
 \usage{
 scene_set_light(scene, light)
 }
+\arguments{
+\item{scene}{External pointer to Scene}
+
+\item{light}{External pointer to Light}
+}
+\value{
+External pointer to new Scene
+}
 \description{
 Set the scene light (returns new scene).
 }

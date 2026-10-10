@@ -6,6 +6,14 @@
 \usage{
 polyline_with_material(line, material_id)
 }
+\arguments{
+\item{line}{External pointer to Polyline}
+
+\item{material_id}{Material identifier string}
+}
+\value{
+External pointer to new Polyline with material
+}
 \description{
 Set material ID on a polyline.
 }

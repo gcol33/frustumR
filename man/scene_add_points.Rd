@@ -6,6 +6,14 @@
 \usage{
 scene_add_points(scene, points)
 }
+\arguments{
+\item{scene}{External pointer to Scene}
+
+\item{points}{External pointer to PointCloud}
+}
+\value{
+External pointer to new Scene
+}
 \description{
 Add a point cloud to the scene (returns new scene).
 }

@@ -9,7 +9,7 @@ material_solid(id, color)
 \arguments{
 \item{id}{Material identifier string}
 
-\item{color}{RGB color as c(r, g, b) with values in \link{0, 1}}
+\item{color}{RGB color as c(r, g, b), each between 0 and 1}
 }
 \value{
 External pointer to Material object
