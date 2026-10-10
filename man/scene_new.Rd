@@ -2,20 +2,20 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{scene_new}
 \alias{scene_new}
-\title{Create a new scene}
+\title{Create a new scene.}
 \usage{
 scene_new(camera, bounds_min, bounds_max)
 }
 \arguments{
-\item{camera}{Camera created with camera_perspective() or camera_orthographic()}
+\item{camera}{External pointer to Camera}
 
-\item{bounds_min}{Minimum bounds as c(x, y, z)}
+\item{bounds_min}{Scene minimum bounds as c(x, y, z)}
 
-\item{bounds_max}{Maximum bounds as c(x, y, z)}
+\item{bounds_max}{Scene maximum bounds as c(x, y, z)}
 }
 \value{
-External pointer to Scene
+External pointer to Scene object
 }
 \description{
-Create a new scene
+Create a new scene.
 }

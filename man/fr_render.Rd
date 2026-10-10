@@ -4,7 +4,13 @@
 \alias{fr_render}
 \title{Render a scene to PNG file (convenience function)}
 \usage{
-fr_render(scene, filename, width = 512, height = 512, background = c(0.1, 0.1, 0.15, 1))
+fr_render(
+  scene,
+  filename,
+  width = 512,
+  height = 512,
+  background = c(0.1, 0.1, 0.15, 1)
+)
 }
 \arguments{
 \item{scene}{Scene object created with scene_new()}
@@ -22,4 +28,43 @@ Invisible NULL
 }
 \description{
 High-level rendering function that combines common operations.
+}
+\examples{
+\dontrun{
+# Create camera and scene
+cam <- camera_perspective(c(2, 1.5, 2), c(0, 0, 0), 45)
+scene <- scene_new(cam, c(-1, -1, -1), c(1, 1, 1))
+
+# Add lighting
+scene <- scene_set_light(scene, light_three_quarter())
+
+# Create and add a sphere
+size <- 30
+values <- numeric(size^3)
+idx <- 1
+for (z in seq_len(size)) {
+  for (y in seq_len(size)) {
+    for (x in seq_len(size)) {
+      fx <- (x - 1) / (size - 1) * 2 - 1
+      fy <- (y - 1) / (size - 1) * 2 - 1
+      fz <- (z - 1) / (size - 1) * 2 - 1
+      values[idx] <- sqrt(fx^2 + fy^2 + fz^2) - 0.8
+      idx <- idx + 1
+    }
+  }
+}
+
+vol <- volume_new(values, c(size, size, size),
+                  c(2/(size-1), 2/(size-1), 2/(size-1)),
+                  c(-1, -1, -1))
+mesh <- marching_cubes(vol, 0.0)
+mesh <- mesh_with_material(mesh, "sphere")
+
+mat <- material_solid("sphere", c(0.3, 0.6, 0.9))
+scene <- scene_add_material(scene, mat)
+scene <- scene_add_mesh(scene, mesh)
+
+# Render
+fr_render(scene, "sphere.png")
+}
 }

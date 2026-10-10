@@ -2,12 +2,12 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{render_to_png}
 \alias{render_to_png}
-\title{Render scene to PNG}
+\title{Render scene to PNG bytes.}
 \usage{
 render_to_png(scene, width, height, background)
 }
 \arguments{
-\item{scene}{Scene to render}
+\item{scene}{External pointer to Scene}
 
 \item{width}{Image width in pixels}
 
@@ -16,8 +16,8 @@ render_to_png(scene, width, height, background)
 \item{background}{Background color as c(r, g, b, a)}
 }
 \value{
-Raw vector containing PNG data
+Raw vector of PNG data
 }
 \description{
-Render scene to PNG
+Render scene to PNG bytes.
 }

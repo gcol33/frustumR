@@ -2,18 +2,18 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{light_new}
 \alias{light_new}
-\title{Create a directional light}
+\title{Create a directional light.}
 \usage{
 light_new(direction, intensity)
 }
 \arguments{
-\item{direction}{Direction toward light source as c(x, y, z)}
+\item{direction}{Light direction as c(x, y, z)}
 
-\item{intensity}{Light intensity (default: 1.0)}
+\item{intensity}{Light intensity (0-1)}
 }
 \value{
-External pointer to Light
+External pointer to Light object
 }
 \description{
-Create a directional light
+Create a directional light.
 }

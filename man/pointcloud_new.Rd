@@ -2,30 +2,18 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{pointcloud_new}
 \alias{pointcloud_new}
-\alias{pointcloud_with_material}
-\alias{pointcloud_with_scalars}
-\title{Create a point cloud}
+\title{Create a point cloud.}
 \usage{
-pointcloud_new(positions, point_size)
-
-pointcloud_with_material(points, material_id)
-
-pointcloud_with_scalars(points, scalars)
+pointcloud_new(positions, size)
 }
 \arguments{
-\item{positions}{Flat vector of point positions (x0, y0, z0, x1, y1, z1, ...)}
+\item{positions}{Flat vector of point positions (x0,y0,z0, x1,y1,z1, ...)}
 
-\item{point_size}{Size of points in pixels}
-
-\item{points}{PointCloud to modify}
-
-\item{material_id}{Material identifier string}
-
-\item{scalars}{Per-point scalar values}
+\item{size}{Point size}
 }
 \value{
-External pointer to PointCloud
+External pointer to PointCloud object
 }
 \description{
-Create a point cloud
+Create a point cloud.
 }

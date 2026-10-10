@@ -2,25 +2,18 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{polyline_new}
 \alias{polyline_new}
-\alias{polyline_with_material}
-\title{Create a polyline}
+\title{Create a polyline.}
 \usage{
-polyline_new(positions, line_width)
-
-polyline_with_material(polyline, material_id)
+polyline_new(positions, width)
 }
 \arguments{
-\item{positions}{Flat vector of vertex positions (x0, y0, z0, x1, y1, z1, ...)}
+\item{positions}{Flat vector of vertex positions}
 
-\item{line_width}{Width of lines in pixels}
-
-\item{polyline}{Polyline to modify}
-
-\item{material_id}{Material identifier string}
+\item{width}{Line width}
 }
 \value{
-External pointer to Polyline
+External pointer to Polyline object
 }
 \description{
-Create a polyline
+Create a polyline.
 }

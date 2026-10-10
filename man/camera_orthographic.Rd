@@ -2,20 +2,20 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{camera_orthographic}
 \alias{camera_orthographic}
-\title{Create an orthographic camera}
+\title{Create an orthographic camera.}
 \usage{
-camera_orthographic(position, target, view_height)
+camera_orthographic(position, target, scale)
 }
 \arguments{
 \item{position}{Camera position as c(x, y, z)}
 
 \item{target}{Look-at target as c(x, y, z)}
 
-\item{view_height}{View height in world units}
+\item{scale}{Orthographic scale factor}
 }
 \value{
-External pointer to Camera
+External pointer to Camera object
 }
 \description{
-Create an orthographic camera
+Create an orthographic camera.
 }

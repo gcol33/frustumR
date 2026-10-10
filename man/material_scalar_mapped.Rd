@@ -2,20 +2,20 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{material_scalar_mapped}
 \alias{material_scalar_mapped}
-\title{Create a scalar-mapped colormap material}
+\title{Create a scalar-mapped colormap material.}
 \usage{
 material_scalar_mapped(id, colormap, range)
 }
 \arguments{
 \item{id}{Material identifier string}
 
-\item{colormap}{Name of colormap: "viridis", "plasma", "magma", "inferno", "cividis"}
+\item{colormap}{Colormap name ("viridis", "plasma", "magma", "inferno", "cividis")}
 
 \item{range}{Scalar range as c(min, max)}
 }
 \value{
-External pointer to Material
+External pointer to Material object
 }
 \description{
-Create a scalar-mapped colormap material
+Create a scalar-mapped colormap material.
 }

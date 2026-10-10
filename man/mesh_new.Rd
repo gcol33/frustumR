@@ -2,18 +2,18 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{mesh_new}
 \alias{mesh_new}
-\title{Create a triangle mesh}
+\title{Create a mesh from positions and indices.}
 \usage{
 mesh_new(positions, indices)
 }
 \arguments{
-\item{positions}{Flat vector of vertex positions (x0, y0, z0, x1, y1, z1, ...)}
+\item{positions}{Flat vector of vertex positions (x0,y0,z0, x1,y1,z1, ...)}
 
-\item{indices}{Flat vector of triangle indices (i0, i1, i2, ...)}
+\item{indices}{Flat vector of triangle indices (i0,i1,i2, ...)}
 }
 \value{
-External pointer to Mesh
+External pointer to Mesh object
 }
 \description{
-Create a triangle mesh
+Create a mesh from positions and indices.
 }

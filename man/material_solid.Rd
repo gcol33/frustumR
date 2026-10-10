@@ -2,23 +2,18 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{material_solid}
 \alias{material_solid}
-\alias{material_solid_alpha}
-\title{Create a solid color material}
+\title{Create a solid color material.}
 \usage{
-material_solid(id, rgb)
-
-material_solid_alpha(id, rgba)
+material_solid(id, color)
 }
 \arguments{
 \item{id}{Material identifier string}
 
-\item{rgb}{Color as c(r, g, b) in 0-1 range}
-
-\item{rgba}{Color with alpha as c(r, g, b, a) in 0-1 range}
+\item{color}{RGB color as c(r, g, b) with values in \link{0, 1}}
 }
 \value{
-External pointer to Material
+External pointer to Material object
 }
 \description{
-Create a solid color material
+Create a solid color material.
 }

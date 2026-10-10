@@ -2,7 +2,7 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{camera_perspective}
 \alias{camera_perspective}
-\title{Create a perspective camera}
+\title{Create a perspective camera.}
 \usage{
 camera_perspective(position, target, fov_degrees)
 }
@@ -14,8 +14,8 @@ camera_perspective(position, target, fov_degrees)
 \item{fov_degrees}{Field of view in degrees}
 }
 \value{
-External pointer to Camera
+External pointer to Camera object
 }
 \description{
-Create a perspective camera
+Create a perspective camera.
 }

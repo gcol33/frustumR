@@ -2,38 +2,10 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{scene_add_mesh}
 \alias{scene_add_mesh}
-\alias{scene_add_points}
-\alias{scene_add_polyline}
-\alias{scene_add_material}
-\alias{scene_set_light}
-\title{Add elements to scene}
+\title{Add a mesh to the scene (returns new scene).}
 \usage{
 scene_add_mesh(scene, mesh)
-
-scene_add_points(scene, points)
-
-scene_add_polyline(scene, polyline)
-
-scene_add_material(scene, material)
-
-scene_set_light(scene, light)
-}
-\arguments{
-\item{scene}{Scene to modify}
-
-\item{mesh}{Mesh to add}
-
-\item{points}{PointCloud to add}
-
-\item{polyline}{Polyline to add}
-
-\item{material}{Material to add}
-
-\item{light}{Light to set}
-}
-\value{
-New Scene with the element added (scenes are immutable)
 }
 \description{
-Add geometry, materials, or lighting to a scene. Returns a new scene.
+Add a mesh to the scene (returns new scene).
 }

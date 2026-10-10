@@ -2,7 +2,7 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{save_png}
 \alias{save_png}
-\title{Save PNG data to file}
+\title{Save PNG data to file.}
 \usage{
 save_png(png_data, filename)
 }
@@ -12,8 +12,8 @@ save_png(png_data, filename)
 \item{filename}{Output filename}
 }
 \value{
-Invisible TRUE on success
+Invisible TRUE on success, or error
 }
 \description{
-Save PNG data to file
+Save PNG data to file.
 }

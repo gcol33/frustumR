@@ -2,19 +2,22 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{volume_new}
 \alias{volume_new}
-\title{Create a 3D scalar volume}
+\title{Create a 3D volume from scalar values.}
 \usage{
 volume_new(values, dimensions, spacing, origin)
 }
 \arguments{
-\item{values}{Flat vector of scalar values (row-major order)}
-\item{dimensions}{Grid dimensions as c(nx, ny, nz)}
-\item{spacing}{Grid spacing as c(dx, dy, dz)}
-\item{origin}{World-space origin as c(ox, oy, oz)}
+\item{values}{Flat vector of scalar values (row-major order: x varies fastest)}
+
+\item{dimensions}{Volume dimensions as c(nx, ny, nz)}
+
+\item{spacing}{Voxel spacing as c(dx, dy, dz)}
+
+\item{origin}{Volume origin as c(ox, oy, oz)}
 }
 \value{
-External pointer to Volume
+External pointer to Volume object
 }
 \description{
-Create a 3D scalar volume
+Create a 3D volume from scalar values.
 }

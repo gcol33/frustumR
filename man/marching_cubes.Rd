@@ -2,18 +2,18 @@
 % Please edit documentation in R/extendr-wrappers.R
 \name{marching_cubes}
 \alias{marching_cubes}
-\title{Extract isosurface using marching cubes}
+\title{Extract isosurface using marching cubes.}
 \usage{
 marching_cubes(volume, iso_value)
 }
 \arguments{
-\item{volume}{Volume created with volume_new()}
+\item{volume}{External pointer to Volume}
 
-\item{iso_value}{Scalar value for the isosurface}
+\item{iso_value}{Isovalue for surface extraction}
 }
 \value{
-External pointer to Mesh with positions, normals, and indices
+External pointer to Mesh
 }
 \description{
-Extract isosurface using marching cubes
+Extract isosurface using marching cubes.
 }
