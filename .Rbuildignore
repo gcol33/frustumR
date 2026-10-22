@@ -11,3 +11,5 @@
 ^src/rust/vendor$
 ^tools$
 ^\.github$
+^sidecars$
+^\.run.*$
