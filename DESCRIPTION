@@ -2,8 +2,8 @@ Package: frustumR
 Title: GPU-Accelerated Scientific 3D Visualization
 Version: 0.1.0
 Authors@R:
-    person("Gilles", "Colling", role = c("aut", "cre"),
-           email = "gilles.colling@kuleuven.be")
+    person("Gilles", "Colling", , "gilles.colling051@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-3070-6066"))
 Description: Create publication-quality 3D scientific figures using GPU
     acceleration. Supports isosurface extraction via marching cubes,
     point clouds, polylines, and triangle meshes. Built on Rust and wgpu
