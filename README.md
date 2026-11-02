@@ -1,7 +1,7 @@
 
 # frustumR
 
-*3D rendered straight to a file*
+*3D figures rendered to a file without a display*
 
 <!-- badges: start -->
 
@@ -13,15 +13,16 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 <!-- badges: end -->
 
 frustumR renders scientific 3D figures, such as isosurfaces, triangle
-meshes, point clouds and lines, on the GPU and writes them to PNG files
-without opening a window.
+meshes, point clouds and lines, on the graphics processing unit (GPU)
+and writes them to PNG files without opening a window.
 
 You build a scene in R from a camera, geometry, materials and a light. A
-Rust backend draws it off-screen with [wgpu](https://wgpu.rs/), which
-runs on Vulkan, Metal or DX12, and returns the PNG bytes. No display
-server or OpenGL context is involved, so the same script runs on a
-laptop, a headless server, a Docker image or a continuous-integration
-job, and you decide where the figure is written.
+Rust backend draws it off-screen with [wgpu](https://wgpu.rs/), a
+graphics library that uses whichever graphics interface the machine
+offers (Vulkan, Metal, DirectX 12 or OpenGL), and returns the PNG bytes.
+No display server or OpenGL window is involved, so the same script runs
+on a laptop, a headless server, a Docker image or a
+continuous-integration job, and you decide where the figure is written.
 
 frustumR supports:
 
@@ -70,7 +71,8 @@ pak::pak("gcol33/frustumR")
 ```
 
 The installer stops with a message when it cannot find `cargo`.
-Rendering needs a GPU with Vulkan, Metal or DX12 support.
+Rendering needs a graphics adapter that wgpu can use through Vulkan,
+Metal, DirectX 12 or OpenGL.
 
 ## Usage
 
@@ -143,8 +145,12 @@ edge <- marching_cubes(grad, iso_value = 0.5)
 
 ## Documentation
 
-Every function has a help page in R: `help(package = "frustumR")` lists
-them, and `?fr_render` or `?marching_cubes` opens one.
+Start with `?fr_render`: the scene, image size and background of a
+render.
+
+- `?marching_cubes`: extracting an isosurface from a volume.
+- `?material_scalar_mapped`: colouring a surface by a value.
+- `help(package = "frustumR")`: every function, with its help page.
 
 ## Getting help
 
