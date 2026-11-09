@@ -96,18 +96,20 @@ scene <- scene_add_mesh(scene, mesh)
 shell <- material_solid("shell", c(0.3, 0.6, 0.9))
 scene <- scene_add_material(scene, shell)
 
-fr_render(scene, "sphere.png")
+fr_render(scene, "sphere.png", background = c(1, 1, 1, 1))
 ```
 
 <p align="center">
 
-<img src="man/figures/README-sphere.png" alt="A light blue shaded sphere on a grey-blue background, rendered at 512 by 512 pixels" width="320">
+<img src="man/figures/README-sphere.png" alt="A light blue shaded sphere on a white background, rendered at 512 by 512 pixels" width="320">
 </p>
 
 `sphere_volume()` returns a signed-distance field on a 30 by 30 by 30
 grid, which is zero on the sphere’s surface, so `iso_value = 0` extracts
 the sphere. A material is linked to a mesh by its name (`"shell"` here).
-The image is 512 by 512 pixels unless `width` and `height` are set.
+The image is 512 by 512 pixels unless `width` and `height` are set, and
+`background` takes the red, green, blue and alpha values of the
+backdrop, each from 0 to 1.
 
 ## Building scenes
 
